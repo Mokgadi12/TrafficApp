@@ -1,0 +1,70 @@
+<?php
+session_start();
+include("connection.php");
+include("function.php");
+
+if($_SERVER['REQUEST_METHOD']=="POST")
+{
+//post something
+
+
+$adminName=$_POST['adminName'];
+$adminSurname=$_POST['adminSurname'];
+$password=$_POST['password'];
+$idNo=$_POST['idNo'];
+
+    If ( !Empty($adminName) && !Empty($adminSurname) && !Empty($password) && !Empty($idNo) && !is_numeric($adminName) && !is_numeric($adminSurname))
+     {
+      
+      $staffNo=random_num(20);
+      $query ="insert into admindb (staffNo,adminName,adminSurname,password,idNo) values ('$staffNo','$adminName','$adminSurname','$password','$idNo')";
+
+      mysqli_query($con,$query);
+
+
+     header("Location: adminLogin.php");
+     die;
+
+     }
+     else
+     {
+      echo"Please enter valied information!";
+     }
+
+
+}
+?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Registration Form</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+
+
+<form method="post">
+<h3>Admin Registration</h3>
+<input type="text" name="adminName" placeholder="Admin Name" required>
+<input type="text" name="adminSurname" placeholder="Admin Surname" required>
+<input type="text" name="idNo" placeholder="Admin ID Number" required>
+<input type="text" name="Email" placeholder="Email Address" required>
+<input type="text" name="password" placeholder="password" required>
+
+<button type="submit">Register Admin</button>
+
+
+<a href="adminLogin.html"></a>
+ <p>Already have an account? <a href="adminLogin.html">Login Here</a></p>
+</form>
+</div>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+</body>
+</html>
